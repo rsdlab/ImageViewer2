@@ -1,0 +1,54 @@
+# ImageViewer2 CMake config file
+#
+# This file sets the following variables:
+# ImageViewer2_FOUND - Always TRUE.
+# ImageViewer2_INCLUDE_DIRS - Directories containing the ImageViewer2 include files.
+# ImageViewer2_IDL_DIRS - Directories containing the ImageViewer2 IDL files.
+# ImageViewer2_LIBRARIES - Libraries needed to use ImageViewer2.
+# ImageViewer2_DEFINITIONS - Compiler flags for ImageViewer2.
+# ImageViewer2_VERSION - The version of ImageViewer2 found.
+# ImageViewer2_VERSION_MAJOR - The major version of ImageViewer2 found.
+# ImageViewer2_VERSION_MINOR - The minor version of ImageViewer2 found.
+# ImageViewer2_VERSION_REVISION - The revision version of ImageViewer2 found.
+# ImageViewer2_VERSION_CANDIDATE - The candidate version of ImageViewer2 found.
+
+message(STATUS "Found ImageViewer2-@PROJECT_VERSION@")
+set(ImageViewer2_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(ImageViewer2_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(ImageViewer2_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(ImageViewer2_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(ImageViewer2_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(ImageViewer2_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(ImageViewer2_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(ImageViewer2_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(ImageViewer2_VERSION @PROJECT_VERSION@)
+set(ImageViewer2_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(ImageViewer2_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(ImageViewer2_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(ImageViewer2_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+
